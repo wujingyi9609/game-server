@@ -6,12 +6,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
-@Component
 public class ReqMessageRegister implements BeanPostProcessor, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
