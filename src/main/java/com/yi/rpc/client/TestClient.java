@@ -26,7 +26,7 @@ public class TestClient {
         Channel channel = bootstrap.connect(socketAddress).sync().channel();
         if (channel.isActive()) {
             ByteBuf buffer = Unpooled.buffer();
-            buffer.writeBytes("Hello RPCServer".getBytes());
+            buffer.writeBytes("Hello RPCServer!".getBytes());
             channel.writeAndFlush(buffer);
         }
         Thread.sleep(3000L);
