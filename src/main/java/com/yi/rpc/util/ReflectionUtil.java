@@ -10,11 +10,8 @@ public class ReflectionUtil {
         Method[] methods = object.getClass().getMethods();
         List<Method> resultMethods = new ArrayList<>();
         for (Method method : methods) {
-            Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
-            for (Annotation declaredAnno : declaredAnnotations) {
-                if (declaredAnno.getClass() == annoClz) {
-                    resultMethods.add(method);
-                }
+            if (method.isAnnotationPresent(annoClz)) {
+                resultMethods.add(method);
             }
         }
         return resultMethods;
