@@ -1,6 +1,8 @@
 package com.yi.rpc.message;
 
-public class ReqMessage {
+import java.io.Serializable;
+
+public class ReqMessage implements Serializable {
     private String requestContent;
 
     public ReqMessage(String requestContent) {

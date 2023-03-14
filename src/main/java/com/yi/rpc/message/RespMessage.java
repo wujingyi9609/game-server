@@ -1,6 +1,8 @@
 package com.yi.rpc.message;
 
-public class RespMessage {
+import java.io.Serializable;
+
+public class RespMessage implements Serializable {
     private String respContent;
 
     public RespMessage(String respContent) {

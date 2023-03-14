@@ -1,6 +1,7 @@
-package com.yi.rpc.handler.messagehandler;
+package com.yi.rpc.dispatcher;
 
 import com.yi.rpc.annotation.ReqMethod;
+import com.yi.rpc.constant.RPCConstant;
 import com.yi.rpc.message.MessageRegistry;
 import com.yi.rpc.util.ReflectionUtil;
 import org.springframework.beans.BeansException;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class ReqMessageRegister implements BeanPostProcessor, ApplicationContextAware {
+public class MessageRegister implements BeanPostProcessor, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     private Map<Class<?>, Integer> clz2MsgId;
@@ -56,8 +57,16 @@ public class ReqMessageRegister implements BeanPostProcessor, ApplicationContext
     }
 
     private void registerRequestHandler(int msgId, Object invoker, Method method) {
-        MessageDispatcher dispatcher = applicationContext.getBean("MessageDispatcher", MessageDispatcher.class);
+        MessageDispatcher dispatcher = applicationContext.getBean(RPCConstant.MESSAGE_DISPATCHER_BEAN, MessageDispatcher.class);
         dispatcher.registerHandler(msgId, invoker, method);
+    }
+
+    public int getMsgIdOrThrow(Class<?> clz) {
+        Integer msgId = clz2MsgId.get(clz);
+        if (msgId == null) {
+            throw new IllegalArgumentException("协议未注册！class:" + clz.getName());
+        }
+        return msgId;
     }
 
     @Override
