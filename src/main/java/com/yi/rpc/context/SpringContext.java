@@ -1,6 +1,8 @@
 package com.yi.rpc.context;
 
+import com.yi.rpc.dispatcher.MessageDispatcher;
 import com.yi.rpc.dispatcher.MessageRegister;
+import com.yi.rpc.serializer.Serializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,5 +22,19 @@ public class SpringContext {
 
     public static MessageRegister getMessageRegister() {
         return INSTANCE.messageRegister;
+    }
+
+    @Autowired
+    private Serializer serializer;
+
+    public static Serializer getSerializer() {
+        return INSTANCE.serializer;
+    }
+
+    @Autowired
+    private MessageDispatcher dispatcher;
+
+    public static MessageDispatcher getDispatcher() {
+        return INSTANCE.dispatcher;
     }
 }

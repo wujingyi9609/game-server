@@ -1,8 +1,11 @@
 package com.yi.rpc.server;
 
 import com.yi.rpc.constant.RPCConstant;
-import com.yi.rpc.handler.RPCMessageHandler;
+import com.yi.rpc.handler.PrintMessageHandler;
+import com.yi.rpc.handler.SimpleMessageHandler;
+import com.yi.rpc.message.SimpleMessageDecoder;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -19,7 +22,7 @@ public class RPCServer {
         bootstrap.group(bossGroup, workerGroup).childOption(ChannelOption.TCP_NODELAY, true)
                 .channel(NioServerSocketChannel.class).childHandler(new ChannelInitializer<SocketChannel>() {
                     protected void initChannel(SocketChannel channel) throws Exception {
-                         channel.pipeline().addLast(new RPCMessageHandler());
+                         channel.pipeline().addLast(getSimpleHandlers());
                     }
                 }).bind(RPCConstant.SERVER_PORT);
     }
@@ -27,5 +30,13 @@ public class RPCServer {
     public void shutdown() {
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
+    }
+
+    private ChannelHandler[] getPrintHandlers() {
+        return new ChannelHandler[]{new PrintMessageHandler()};
+    }
+
+    private ChannelHandler[] getSimpleHandlers() {
+        return new ChannelHandler[]{new SimpleMessageDecoder(), new SimpleMessageHandler()};
     }
 }

@@ -1,6 +1,7 @@
 package com.yi.rpc.serializer.impl;
 
 import com.yi.rpc.serializer.Serializer;
+import org.springframework.stereotype.Component;
 import org.springframework.util.SerializationUtils;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.util.SerializationUtils;
  * 1.序列化时附加了太多的信息
  * 2.被序列化的消息必须实现Serializable
  */
+@Component
 public class SimpleSerializer implements Serializer {
     @Override
     public byte[] encode(Object object) {

@@ -21,4 +21,12 @@ public class MessageDispatcher {
             throw new UnsupportedOperationException("协议号重复！id：" +  messageId);
         }
     }
+
+    public ReqMessageHandler getMsgHandlerThrow(int msgId) {
+        ReqMessageHandler messageHandler = messageHandlers.get(msgId);
+        if (messageHandler == null) {
+            throw new IllegalArgumentException("找不到协议处理器！id：" + msgId);
+        }
+        return messageHandler;
+    }
 }
