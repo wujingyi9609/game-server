@@ -2,6 +2,7 @@ package com.yi.rpc.context;
 
 import com.yi.rpc.dispatcher.MessageDispatcher;
 import com.yi.rpc.dispatcher.MessageRegister;
+import com.yi.rpc.factory.HandlerFactory;
 import com.yi.rpc.serializer.Serializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,5 +37,12 @@ public class SpringContext {
 
     public static MessageDispatcher getDispatcher() {
         return INSTANCE.dispatcher;
+    }
+
+    @Autowired
+    private HandlerFactory handlerFactory;
+
+    public static HandlerFactory getHandlerFactory() {
+        return INSTANCE.handlerFactory;
     }
 }

@@ -1,8 +1,8 @@
 package com.yi.rpc.client;
 
 import com.yi.rpc.constant.RPCConstant;
+import com.yi.rpc.context.SpringContext;
 import com.yi.rpc.message.ReqMessage;
-import com.yi.rpc.message.SimpleMessageEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -26,7 +26,7 @@ public class RPCClient {
         bootstrap.group(group);
         bootstrap.channel(NioSocketChannel.class).handler(new ChannelInitializer<NioSocketChannel>() {
             protected void initChannel(NioSocketChannel ch) {
-                ch.pipeline().addLast(getSimpleHandlers());
+                ch.pipeline().addLast(getHandlers());
             }
         });
         NioSocketChannel channel = (NioSocketChannel)bootstrap.connect(socketAddress).sync().channel();
@@ -38,15 +38,16 @@ public class RPCClient {
         applicationContext.stop();
     }
 
+    private static ChannelHandler[] getHandlers() {
+        return SpringContext.getHandlerFactory().getChannelHandlers();
+    }
+
     private static void sendStrMsg(Channel channel) {
         ByteBuf buffer = Unpooled.buffer();
         buffer.writeBytes("Hello RPCServer!".getBytes());
         channel.writeAndFlush(buffer);
     }
 
-    private static ChannelHandler[] getSimpleHandlers() {
-        return new ChannelHandler[]{new SimpleMessageEncoder()};
-    }
 
     private static void sendSimpleMsg(NioSocketChannel channel) {
         ReqMessage reqMessage = new ReqMessage("Simple RPC Message!");

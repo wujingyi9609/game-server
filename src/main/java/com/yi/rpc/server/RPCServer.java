@@ -1,9 +1,8 @@
 package com.yi.rpc.server;
 
 import com.yi.rpc.constant.RPCConstant;
+import com.yi.rpc.context.SpringContext;
 import com.yi.rpc.handler.PrintMessageHandler;
-import com.yi.rpc.handler.SimpleMessageHandler;
-import com.yi.rpc.message.SimpleMessageDecoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -22,7 +21,7 @@ public class RPCServer {
         bootstrap.group(bossGroup, workerGroup).childOption(ChannelOption.TCP_NODELAY, true)
                 .channel(NioServerSocketChannel.class).childHandler(new ChannelInitializer<SocketChannel>() {
                     protected void initChannel(SocketChannel channel) throws Exception {
-                         channel.pipeline().addLast(getSimpleHandlers());
+                         channel.pipeline().addLast(getHandlers());
                     }
                 }).bind(RPCConstant.SERVER_PORT);
     }
@@ -36,7 +35,7 @@ public class RPCServer {
         return new ChannelHandler[]{new PrintMessageHandler()};
     }
 
-    private ChannelHandler[] getSimpleHandlers() {
-        return new ChannelHandler[]{new SimpleMessageDecoder(), new SimpleMessageHandler()};
+    private ChannelHandler[] getHandlers() {
+        return SpringContext.getHandlerFactory().getChannelHandlers();
     }
 }
