@@ -33,7 +33,7 @@ public class RPCClient {
         if (channel.isActive()) {
             sendSimpleMsg(channel);
         }
-        Thread.sleep(1000L);
+        Thread.sleep(500L);
         group.shutdownGracefully();
         applicationContext.stop();
     }
@@ -52,5 +52,9 @@ public class RPCClient {
     private static void sendSimpleMsg(NioSocketChannel channel) {
         ReqMessage reqMessage = new ReqMessage("Simple RPC Message!");
         channel.writeAndFlush(reqMessage);
+    }
+
+    private void authorTest() {
+
     }
 }
