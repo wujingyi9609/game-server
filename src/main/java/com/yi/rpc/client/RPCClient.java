@@ -53,9 +53,4 @@ public class RPCClient {
         ReqMessage reqMessage = new ReqMessage("Simple RPC Message!");
         channel.writeAndFlush(reqMessage);
     }
-
-    private void authorTest() {
-        System.out.println();
-        System.out.println();
-    }
 }
