@@ -1,6 +1,7 @@
 package com.yi.rpc.constant;
 
 public class RPCConstant {
+    public static final String SERVER_HOST = "127.0.0.1";
     /**
      * 服务器端口
      */

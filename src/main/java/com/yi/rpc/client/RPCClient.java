@@ -21,7 +21,7 @@ public class RPCClient {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("application.xml");
         applicationContext.start();
         Bootstrap bootstrap = new Bootstrap();
-        InetSocketAddress socketAddress = new InetSocketAddress("127.0.0.1", RPCConstant.SERVER_PORT);
+        InetSocketAddress socketAddress = new InetSocketAddress(RPCConstant.SERVER_HOST, RPCConstant.SERVER_PORT);
         EventLoopGroup group = new NioEventLoopGroup();
         bootstrap.group(group);
         bootstrap.channel(NioSocketChannel.class).handler(new ChannelInitializer<NioSocketChannel>() {
