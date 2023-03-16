@@ -1,8 +1,8 @@
 package com.yi.rpc.factory;
 
 import com.yi.rpc.handler.SimpleMessageHandler;
-import com.yi.rpc.message.SimpleMessageDecoder;
-import com.yi.rpc.message.SimpleMessageEncoder;
+import com.yi.rpc.handler.SimpleMessageDecoder;
+import com.yi.rpc.handler.SimpleMessageEncoder;
 import io.netty.channel.ChannelHandler;
 import org.springframework.stereotype.Component;
 

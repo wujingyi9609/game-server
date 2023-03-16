@@ -1,4 +1,4 @@
-package com.yi.rpc.message;
+package com.yi.rpc.handler;
 
 import com.yi.rpc.context.SpringContext;
 import io.netty.buffer.ByteBuf;
@@ -19,6 +19,5 @@ public class SimpleMessageEncoder extends MessageToByteEncoder<Object> {
         byteBuffer.writeInt(length);
         byteBuffer.writeInt(msgId);
         byteBuffer.writeBytes(bytes);
-        System.out.println("【SimpleMessageEncoder】write buffer. length: " + length + ", msgId: " + msgId);
     }
 }

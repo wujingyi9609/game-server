@@ -8,4 +8,8 @@ public class ReqMessage implements Serializable {
     public ReqMessage(String requestContent) {
         this.requestContent = requestContent;
     }
+
+    public String getRequestContent() {
+        return requestContent;
+    }
 }
