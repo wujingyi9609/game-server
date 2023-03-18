@@ -1,5 +1,7 @@
 package com.yi.rpc.dispatcher;
 
+import com.yi.rpc.session.Session;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -14,9 +16,9 @@ public class ReqMessageHandler {
         this.method = method;
     }
 
-    public void invoke(Object req) {
+    public void invoke(Session session, Object req) {
         try {
-            method.invoke(object, req);
+            method.invoke(object, session, req);
         } catch (Exception e) {
             System.out.println("处理消息失败！协议ID：" + messageId + "\n" + Arrays.toString(e.getStackTrace()));
         }

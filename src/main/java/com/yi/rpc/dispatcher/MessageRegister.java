@@ -3,6 +3,7 @@ package com.yi.rpc.dispatcher;
 import com.yi.rpc.annotation.ReqMethod;
 import com.yi.rpc.constant.RPCConstant;
 import com.yi.rpc.message.MessageRegistry;
+import com.yi.rpc.session.Session;
 import com.yi.rpc.util.ReflectionUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -43,11 +44,14 @@ public class MessageRegister implements BeanPostProcessor, ApplicationContextAwa
 
     private void tryRegisterRequestHandler(Object bean, Method method, String beanName) {
         int parameterCount = method.getParameterCount();
-        if (parameterCount != 1) {
+        if (parameterCount != 2) {
             throw new IllegalArgumentException("参数个数不符合要求！bean:" + beanName + ", method:" + method.getName());
         }
         Class<?>[] parameterTypes = method.getParameterTypes();
-        Class<?> reqClz = parameterTypes[0];
+        if (!parameterTypes[0].equals(Session.class)) {
+            throw new IllegalArgumentException("参数类型不符合要求！bean:" + beanName + ", method:" + method.getName());
+        }
+        Class<?> reqClz = parameterTypes[1];
         Integer msgId = clz2MsgId.get(reqClz);
         if (msgId == null) {
             throw new IllegalArgumentException("协议未注册！bean:" + beanName + ", method:" + method.getName()

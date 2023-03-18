@@ -8,6 +8,10 @@ import java.net.SocketAddress;
 @Getter
 public class Session {
     /**
+     * 唯一ID
+     */
+    private int id;
+    /**
      * 客户端channel
      */
     private Channel channel;
