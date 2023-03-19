@@ -39,7 +39,7 @@ public class RPCClient {
     }
 
     private static ChannelHandler[] getHandlers() {
-        return SpringContext.getHandlerFactory().getChannelHandlers();
+        return SpringContext.getHandlerFactory().getClientChannelHandlers();
     }
 
     private static void sendStrMsg(Channel channel) {

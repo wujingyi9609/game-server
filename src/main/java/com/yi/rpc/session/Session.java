@@ -31,4 +31,8 @@ public class Session {
         this.ip = ipAndPort[0];
         this.port = Integer.parseInt(ipAndPort[1]);
     }
+
+    public void sendToClient(Object packet) {
+        channel.writeAndFlush(packet);
+    }
 }

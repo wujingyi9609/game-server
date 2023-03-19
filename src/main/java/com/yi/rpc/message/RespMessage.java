@@ -8,4 +8,11 @@ public class RespMessage implements Serializable {
     public RespMessage(String respContent) {
         this.respContent = respContent;
     }
+
+    @Override
+    public String toString() {
+        return "RespMessage{" +
+                "respContent='" + respContent + '\'' +
+                '}';
+    }
 }

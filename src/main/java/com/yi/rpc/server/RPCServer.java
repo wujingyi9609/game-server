@@ -36,6 +36,6 @@ public class RPCServer {
     }
 
     private ChannelHandler[] getHandlers() {
-        return SpringContext.getHandlerFactory().getChannelHandlers();
+        return SpringContext.getHandlerFactory().getServerChannelHandlers();
     }
 }
