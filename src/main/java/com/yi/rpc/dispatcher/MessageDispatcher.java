@@ -25,9 +25,8 @@ public class MessageDispatcher {
     @PostConstruct
     public void postConstruct() {
         for (int i = 0; i < executors.length; i++) {
-            int index = i;
             executors[i] = new ThreadPoolExecutor(1, 1, 300, TimeUnit.SECONDS,
-                    new LinkedBlockingQueue<>(), new DefaultThreadFactory("core-executor-" + index));
+                    new LinkedBlockingQueue<>(), new DefaultThreadFactory("core-executor-" + i));
         }
     }
 
