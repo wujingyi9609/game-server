@@ -1,7 +1,6 @@
 package com.yi.rpc.handler;
 
 import com.yi.rpc.context.SpringContext;
-import com.yi.rpc.dispatcher.ReqMessageHandler;
 import com.yi.rpc.log.LoggerUtil;
 import com.yi.rpc.session.Session;
 import com.yi.rpc.session.SessionUtil;
@@ -30,8 +29,6 @@ public class SimpleClientMessageHandler extends ChannelInboundHandlerAdapter {
         if (session == null) {
             throw new NullPointerException("Cannot find Session!");
         }
-        int msgId = SpringContext.getMessageRegister().getMsgIdOrThrow(msg.getClass());
-        ReqMessageHandler messageHandler = SpringContext.getDispatcher().getMsgHandlerThrow(msgId);
-        messageHandler.invoke(session, msg);
+        SpringContext.getDispatcher().doHandle(session, msg);
     }
 }

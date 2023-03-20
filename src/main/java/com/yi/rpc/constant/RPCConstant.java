@@ -6,5 +6,10 @@ public class RPCConstant {
      * 服务器端口
      */
     public static final int SERVER_PORT = 55555;
-    public static final String MESSAGE_DISPATCHER_BEAN = "MessageDispatcher";
+    public static final String MESSAGE_DISPATCHER_BEAN_NAME = "MessageDispatcher";
+    /**
+     * 处理任务的线程数
+     */
+    public static final int EXECUTOR_NUM = 3;
+
 }

@@ -61,7 +61,7 @@ public class MessageRegister implements BeanPostProcessor, ApplicationContextAwa
     }
 
     private void registerRequestHandler(int msgId, Object invoker, Method method) {
-        MessageDispatcher dispatcher = applicationContext.getBean(RPCConstant.MESSAGE_DISPATCHER_BEAN, MessageDispatcher.class);
+        MessageDispatcher dispatcher = applicationContext.getBean(RPCConstant.MESSAGE_DISPATCHER_BEAN_NAME, MessageDispatcher.class);
         dispatcher.registerHandler(msgId, invoker, method);
     }
 
