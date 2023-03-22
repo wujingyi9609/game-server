@@ -1,11 +1,11 @@
-package com.yi.rpc.message;
+package com.yi.rpc.example.message;
 
 import java.io.Serializable;
 
-public class ReqMessage implements Serializable {
+public class SimpleReqMessage implements Serializable {
     private String requestContent;
 
-    public ReqMessage(String requestContent) {
+    public SimpleReqMessage(String requestContent) {
         this.requestContent = requestContent;
     }
 

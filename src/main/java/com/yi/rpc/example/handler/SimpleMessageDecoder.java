@@ -1,4 +1,4 @@
-package com.yi.rpc.handler;
+package com.yi.rpc.example.handler;
 
 import com.yi.rpc.context.SpringContext;
 import io.netty.buffer.ByteBuf;

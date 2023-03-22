@@ -2,7 +2,7 @@ package com.yi.rpc.server;
 
 import com.yi.rpc.constant.RPCConstant;
 import com.yi.rpc.context.SpringContext;
-import com.yi.rpc.handler.PrintMessageHandler;
+import com.yi.rpc.example.handler.PrintMessageHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;

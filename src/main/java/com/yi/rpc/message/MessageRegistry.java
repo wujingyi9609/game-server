@@ -1,9 +1,12 @@
 package com.yi.rpc.message;
 
+import com.yi.rpc.example.message.SimpleReqMessage;
+import com.yi.rpc.example.message.SimpleRespMessage;
+
 public enum MessageRegistry {
 
-    REQ_MGS(-10000, ReqMessage.class, "测试请求"),
-    RESP_MSG(-10001, RespMessage.class, "测试响应")
+    REQ_MGS(-10000, SimpleReqMessage.class, "测试请求"),
+    RESP_MSG(-10001, SimpleRespMessage.class, "测试响应")
     ;
 
     /**

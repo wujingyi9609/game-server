@@ -1,4 +1,4 @@
-package com.yi.rpc.handler;
+package com.yi.rpc.example.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
