@@ -5,13 +5,13 @@ import com.yi.game.game.factory.GameHandlerFactory;
 import com.yi.game.player.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class CreateGameHandler {
+public abstract class AbstractCreateGameHandler {
     @Autowired
     private GameHandlerFactory handlerFactory;
 
     @Autowired
     private void postConstruct() {
-
+        handlerFactory.registerCreateGameHandler(getType(), this);
     }
 
     public abstract GameType getType();

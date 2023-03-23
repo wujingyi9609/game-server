@@ -18,4 +18,13 @@ public enum GameType {
     GameType(int id) {
         this.id = id;
     }
+
+    public static GameType valueOf(int id) {
+        for (GameType gameType : values()) {
+            if (gameType.id == id) {
+                return gameType;
+            }
+        }
+        return null;
+    }
 }
