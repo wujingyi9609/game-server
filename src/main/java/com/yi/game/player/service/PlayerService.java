@@ -11,6 +11,7 @@ public class PlayerService {
     private RegisterChecker checker;
     @Autowired
     private RegisterHandler registerHandler;
+
     public void register(String account, String password, String confirmPwd) {
         checker.checkRegister(account, password, confirmPwd);
         registerHandler.register(account, password);

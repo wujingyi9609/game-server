@@ -1,4 +1,4 @@
-package com.yi.game.common;
+package com.yi.game.common.constant;
 
 public enum ResultCode {
 
