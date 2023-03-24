@@ -11,7 +11,7 @@ public class ServerStarter {
         applicationContext.start();
         RPC_SERVER.start();
         // todo wujingyi
-        Thread.sleep(1000000L);
+        Thread.sleep(10000000L);
         RPC_SERVER.shutdown();
         applicationContext.stop();
     }
