@@ -2,9 +2,10 @@ package com.yi.game.mazegame.algorithm.astart;
 
 import com.yi.game.mazegame.model.Position;
 
-import java.util.List;
-
-public class AStartPosition {
+public class AStartPosition implements Comparable<AStartPosition> {
+    /**
+     * 当前位置
+     */
     private Position position;
     /**
      * 起点走到这里的消耗
@@ -17,12 +18,21 @@ public class AStartPosition {
     /**
      * 前置点
      */
-    private List<Position> prePositions;
+    private Position prePosition;
 
-    public AStartPosition(Position position, int historyCost, int futureCost, List<Position> prePositions) {
+    public AStartPosition(Position position, int historyCost, int futureCost, Position prePosition) {
         this.position = position;
         this.historyCost = historyCost;
         this.futureCost = futureCost;
-        this.prePositions = prePositions;
+        this.prePosition = prePosition;
+    }
+
+    public int getTotalCost() {
+        return historyCost + futureCost;
+    }
+
+    @Override
+    public int compareTo(AStartPosition o) {
+        return Integer.compare(getTotalCost(), o.getTotalCost());
     }
 }

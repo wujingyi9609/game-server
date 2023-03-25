@@ -18,8 +18,13 @@ public class AStartPathSearchAlgorithm implements PathSearchAlgorithm {
         if (fromPos.equals(toPos)) {
             return Collections.emptyList();
         }
+        AStartContext context = new AStartContext();
+
+        doSearchPath(context);
         return null;
     }
 
+    private void doSearchPath(AStartContext context) {
 
+    }
 }
