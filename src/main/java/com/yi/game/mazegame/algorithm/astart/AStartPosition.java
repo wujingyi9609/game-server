@@ -1,7 +1,13 @@
 package com.yi.game.mazegame.algorithm.astart;
 
 import com.yi.game.mazegame.model.Position;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Objects;
+
+@Getter
+@Setter
 public class AStartPosition implements Comparable<AStartPosition> {
     /**
      * 当前位置
@@ -29,6 +35,19 @@ public class AStartPosition implements Comparable<AStartPosition> {
 
     public int getTotalCost() {
         return historyCost + futureCost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AStartPosition that = (AStartPosition) o;
+        return Objects.equals(position, that.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position);
     }
 
     @Override

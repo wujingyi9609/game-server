@@ -5,9 +5,7 @@ import com.yi.game.mazegame.model.SearchPathResult;
 import com.yi.game.util.MathUtil;
 import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 public class AStartContext {
@@ -24,13 +22,17 @@ public class AStartContext {
      */
     private Set<AStartPosition> closePositions;
     /**
-     * 等待计算结果的点
+     * 等待计算结果的坐标
      */
-    private PriorityQueue<AStartPosition> openPositions;
+    private SortedSet<AStartPosition> openPositions;
+    /**
+     * 坐标：坐标信息
+     */
+    private Map<Position, AStartPosition> openPosCache;
 
     public AStartContext(Position fromPos, Position toPos) {
         this.closePositions = new HashSet<>();
-        this.openPositions = new PriorityQueue<>();
+        this.openPositions = new TreeSet<>();
         int futureCost =  MathUtil.getDistance(fromPos, toPos);
         AStartPosition aStartPosition = new AStartPosition(fromPos, 0, futureCost, null);
         this.openPositions.add(aStartPosition);
@@ -41,7 +43,20 @@ public class AStartContext {
         closePositions.add(pos);
     }
 
-    public void addOpenPositions(Set<AStartPosition> pos) {
-        openPositions.addAll(pos);
+    public void addOpenPositions(Set<AStartPosition> positions) {
+        for (AStartPosition position : positions) {
+            addOpenPosition(position);
+        }
     }
+
+    private void addOpenPosition(AStartPosition position) {
+        Position realPos = position.getPosition();
+        AStartPosition oldPosition = openPosCache.get(realPos);
+        int newHistoryCost = position.getHistoryCost();
+        if (oldPosition != null && oldPosition.getHistoryCost() > newHistoryCost) {
+            oldPosition.setHistoryCost(newHistoryCost);
+            oldPosition.setPrePosition(position.getPrePosition());
+        }
+    }
+
 }

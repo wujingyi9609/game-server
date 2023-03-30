@@ -19,12 +19,10 @@ public class AStartPathSearchAlgorithm implements PathSearchAlgorithm {
             return Collections.emptyList();
         }
         AStartContext context = new AStartContext(fromPos, toPos);
-
         doSearchPath(context);
         return null;
     }
 
     private void doSearchPath(AStartContext context) {
-
     }
 }
