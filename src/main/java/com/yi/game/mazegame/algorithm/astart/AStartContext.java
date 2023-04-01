@@ -44,6 +44,10 @@ public class AStartContext {
         return openPositions.first();
     }
 
+    public boolean isClosePosition(AStartPosition pos) {
+        return closePositions.contains(pos);
+    }
+
     public void addClosePosition(AStartPosition pos) {
         closePositions.add(pos);
     }
