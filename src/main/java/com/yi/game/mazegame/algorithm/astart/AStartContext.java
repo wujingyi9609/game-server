@@ -16,7 +16,7 @@ public class AStartContext {
     /**
      * 终点
      */
-    private Position toPos;
+    private Position targetPos;
     /**
      * 无法达到终点的点
      */
@@ -28,15 +28,20 @@ public class AStartContext {
     /**
      * 坐标：坐标信息
      */
-    private Map<Position, AStartPosition> openPosCache;
+    private Map<Position, AStartPosition> openPosIndex;
 
-    public AStartContext(Position fromPos, Position toPos) {
+    public AStartContext(Position fromPos, Position targetPos) {
         this.closePositions = new HashSet<>();
         this.openPositions = new TreeSet<>();
-        int futureCost =  MathUtil.getDistance(fromPos, toPos);
+        this.openPosIndex = new HashMap<>();
+        int futureCost =  MathUtil.getDistance(fromPos, targetPos);
         AStartPosition aStartPosition = new AStartPosition(fromPos, 0, futureCost, null);
-        this.openPositions.add(aStartPosition);
-        this.toPos = toPos;
+        addOpenPosition(aStartPosition);
+        this.targetPos = targetPos;
+    }
+
+    public AStartPosition getMinCostPosition() {
+        return openPositions.first();
     }
 
     public void addClosePosition(AStartPosition pos) {
@@ -50,13 +55,19 @@ public class AStartContext {
     }
 
     private void addOpenPosition(AStartPosition position) {
+        if (closePositions.contains(position)) {
+            return;
+        }
         Position realPos = position.getPosition();
-        AStartPosition oldPosition = openPosCache.get(realPos);
+        AStartPosition oldPosition = openPosIndex.get(realPos);
         int newHistoryCost = position.getHistoryCost();
         if (oldPosition != null && oldPosition.getHistoryCost() > newHistoryCost) {
             oldPosition.setHistoryCost(newHistoryCost);
             oldPosition.setPrePosition(position.getPrePosition());
+            position = oldPosition;
         }
+        openPositions.add(position);
+        openPosIndex.put(position.getPosition(), position);
     }
 
 }
