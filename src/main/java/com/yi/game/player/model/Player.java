@@ -1,6 +1,5 @@
 package com.yi.game.player.model;
 
-import com.yi.game.tradegame.model.PlayerTradeGameInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +17,5 @@ public class Player {
      * 密码
      */
     private String password;
-    /**
-     * 交易游戏
-     */
-    private PlayerTradeGameInfo tradeGameInfo;
+
 }
