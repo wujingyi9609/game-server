@@ -2,7 +2,8 @@ package com.yi.game.landlord.statemachine;
 
 import com.yi.game.landlord.model.Room;
 import com.yi.game.landlord.statemachine.msg.LandlordMsg;
-import com.yi.game.landlord.statemachine.state.RoomState;
+import com.yi.game.landlord.statemachine.state.RoomStateType;
+import com.yi.game.landlord.statemachine.state.State;
 
 /**
  * 状态机，负责状态切换
@@ -15,20 +16,20 @@ public class StateMachine {
     /**
      * 当前状态
      */
-    private RoomState curState;
+    private State<Room> curState;
 
     public StateMachine(Room room) {
         this.room = room;
-        this.curState = RoomState.NOT_START;
+        this.curState = RoomStateType.NOT_START.getRoomState();
     }
 
     void onMessage(LandlordMsg msg) {
         curState.onMessage(room, msg);
     }
 
-    public void changeState(RoomState newState) {
+    public void changeState(RoomStateType stateType) {
         curState.exit(room);
-        curState = newState;
-        newState.enter(room);
+        curState = stateType.getRoomState();
+        curState.enter(room);
     }
 }
