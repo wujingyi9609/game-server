@@ -1,12 +1,17 @@
 package com.yi.game.landlord.model;
 
+import com.yi.game.landlord.model.poker.Poker;
 import com.yi.game.landlord.statemachine.StateMachine;
 import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 /**
  * 房间
  */
 @Getter
+@Setter
 public class Room {
     private long uid;
     /**
@@ -18,9 +23,13 @@ public class Room {
      */
     private Position[] positions;
     /**
+     * 地主的牌
+     */
+    private List<Poker> landlordPorkers;
+    /**
      * 当前需要做动作的Position下标
      */
-    private int curIndex;
+    private int actionPosition;
     /**
      * 状态机
      */
@@ -45,7 +54,17 @@ public class Room {
         return true;
     }
 
-    private static class Position {
+    public void sendToRoomPlayers(Object object) {
+        for (Room.Position position : getPositions()) {
+            Player player = position.getPlayer();
+            if (player != null) {
+                player.getSession().sendToClient(object);
+            }
+        }
+    }
+
+    @Getter
+    public static class Position {
         private int id;
         private Player player;
     }

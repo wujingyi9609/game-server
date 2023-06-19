@@ -1,6 +1,7 @@
 package com.yi.game.landlord.statemachine.state;
 
 import com.yi.game.landlord.model.Room;
+import com.yi.game.landlord.pakcet.RoomInfoResp;
 import com.yi.game.landlord.statemachine.msg.LandlordMsg;
 import com.yi.game.landlord.statemachine.msg.LandlordMsgType;
 
@@ -28,8 +29,14 @@ public class NotStartState implements State<Room> {
         if (msg.getMsgType() != LandlordMsgType.ENTER_ROOM) {
             return;
         }
+        notifyPlayerEnter(room);
         if (room.isPlayerEnough()) {
             room.getStateMachine().changeState(RoomStateType.STARTING);
         }
+    }
+
+    private void notifyPlayerEnter(Room room) {
+        RoomInfoResp packet = new RoomInfoResp(room);
+        room.sendToRoomPlayers(packet);
     }
 }
