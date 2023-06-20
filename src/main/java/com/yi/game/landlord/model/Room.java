@@ -19,9 +19,9 @@ public class Room {
      */
     private Player owner;
     /**
-     * 桌位
+     * 各个桌位的玩家
      */
-    private Position[] positions;
+    private Player[] players;
     /**
      * 地主的牌
      */
@@ -37,35 +37,53 @@ public class Room {
 
     public Room(Player player) {
         owner = player;
-        positions = new Position[3];
-        for (int i = 0; i < positions.length; i++) {
-            positions[i] = new Position();
-            positions[i].id = i;
-        }
+        players = new Player[3];
         stateMachine = new StateMachine(this);
     }
 
-    public boolean isPlayerEnough() {
-        for (Position position : positions) {
-            if (position.player == null) {
-                return false;
-            }
-        }
-        return true;
+    public void updateActionPos() {
+        actionPosition = (actionPosition + 1) % 3;
+    }
+
+    public void update() {
+        stateMachine.getCurState().update(this);
     }
 
     public void sendToRoomPlayers(Object object) {
-        for (Room.Position position : getPositions()) {
-            Player player = position.getPlayer();
+        for (Player player : this.getPlayers()) {
             if (player != null) {
                 player.getSession().sendToClient(object);
             }
         }
     }
 
-    @Getter
-    public static class Position {
-        private int id;
-        private Player player;
+    public boolean isPlayerEnough() {
+        for (Player player : players) {
+            if (player == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Player getActionPlayer() {
+        return players[actionPosition];
+    }
+
+    public boolean isCurActionTimeout() {
+        Player player = players[actionPosition];
+        return System.currentTimeMillis() > player.getTimeOutMs();
+    }
+
+    /**
+     * 抢地主阶段是否结束
+     */
+    public boolean isElectionOver() {
+        for (Player player : players) {
+            if (player.getElectionType() == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }

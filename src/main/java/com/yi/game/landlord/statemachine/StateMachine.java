@@ -4,10 +4,12 @@ import com.yi.game.landlord.model.Room;
 import com.yi.game.landlord.statemachine.msg.LandlordMsg;
 import com.yi.game.landlord.statemachine.state.RoomStateType;
 import com.yi.game.landlord.statemachine.state.State;
+import lombok.Getter;
 
 /**
  * 状态机，负责状态切换
  */
+@Getter
 public class StateMachine {
     /**
      * 状态机负责的房间

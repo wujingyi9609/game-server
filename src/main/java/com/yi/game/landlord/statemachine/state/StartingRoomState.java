@@ -21,9 +21,9 @@ public class StartingRoomState implements State<Room> {
 
     private void distributePokers(Room room) {
         List<List<Poker>> playerPokers = PokerUtil.distributePorkers();
-        for (Room.Position position : room.getPositions()) {
-            List<Poker> pokers = playerPokers.get(position.getId());
-            position.getPlayer().setPokers(pokers);
+        for (int i = 0; i < room.getPlayers().length; i++) {
+            List<Poker> pokers = playerPokers.get(i);
+            room.getPlayers()[i].setPokers(pokers);
         }
         room.setLandlordPorkers(playerPokers.get(3));
     }

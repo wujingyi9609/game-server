@@ -12,7 +12,7 @@ public enum LandlordMsgType {
     /**
      * 抢地主
      */
-    LANDLORD_ELECT,
+    LANDLORD_ELECTION,
     /**
      * 出牌
      */
